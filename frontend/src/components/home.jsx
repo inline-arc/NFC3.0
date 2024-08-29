@@ -1,30 +1,113 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { ethers } from "ethers";
+import Evault from "../data/Evalue.json";
 import { Search } from 'lucide-react';
 import { useFormStore } from "../utils/useform";
 import { useWalletStore } from "../utils/usewallet";
 import { Link } from 'react-router-dom';
-import NavBar from "./partials/navbar";
 
-export default function Home() {
+ // Make sure this JSON file contains your contract's ABI
+
+export default function CardList() {
+
+    const [account, setAccount] = useState(null);
+    const [contract, setContract] = useState(null);
+    const [provider, setProvider] = useState(null);
+
+    const requestMetaMaskAccess = async () => {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        try {
+            await provider.send("eth_requestAccounts", []);
+            window.ethereum.on("chainChanged", () => {
+                window.location.reload();
+            });
+            window.ethereum.on("accountsChanged", () => {
+                window.location.reload();
+            });
+
+            const signer = provider.getSigner();
+            const address = await signer.getAddress();
+            setAccount(address);
+
+            const contractAddress = "0x62a0f9ce7f2a20f279188f591b957694c4eb2ef2"; // Replace with your contract address
+            const con = new ethers.Contract(contractAddress, Evault.abi, signer);
+            setContract(con);
+            console.log(contract)
+            setProvider(signer);
+            console.log("Contract initialized", contract);
+        } catch (error) {
+            console.error("Error connecting to MetaMask", error);
+        // Remove the extra closing curly brace
+    };
+
+        try {
+            const donationAmount = ethers.utils.parseEther("0.01"); // Example donation amount in MATIC
+            const tx = await contract.donate({ value: donationAmount });
+            await tx.wait();
+            console.log("Donation successful", tx);
+        } catch (error) {
+            console.error("Error making a donation", error);
+        }
+    };  
 
     const campaigns = [
         {
-                title: "Help My Father Recover From a Severe Heart Attack...",
-                imageUrl: "https://img.freepik.com/free-photo/portrait-little-boy-refugee-holding-paper_23-2151494457.jpg?w=1380&t=st=1724928328~exp=1724931928~hmac=545485e7462bb67eaf6a2682ea15851e429df6ef57a1b3efaa6b9f65e69a7506",
-                fundsRequired: "₹ 15,00,000",
-                progress: 45,
-                campaignEnds: "30 Days",
-                peopleDonated: 10,
-            },
-      ];
+            title: "My Mother Is Suffering From severe brain Stroke, heart...",
+            imageUrl: "https://img.freepik.com/free-photo/photorealistic-kid-refugee-camp_23-2151494454.jpg",
+            fundsRequired: "₹ 20,00,000",
+            progress: 30,
+            campaignEnds: "43 Days",
+            peopleDonated: 5,
+        },
+        // Add other campaigns here...
+    ];
 
+    
   const formData = useFormStore((state) => state.formData);
   const wallet = useWalletStore(state => state.wallet);
 
   return (
     <div className="flex min-h-screen">
       {/* Vertical Navbar */}
-      <NavBar />
+      <div className="w-1/5 p-6 border-r-2 border-[#2f2334] bg-[#f8f9fa]">
+        <div className="flex flex-col items-center mb-6 gap-4">
+          <img 
+            src="https://media.licdn.com/dms/image/D4E0BAQH8C2rq-gomdg/company-logo_200_200/0/1714460779107/floqer_logo?e=1728518400&v=beta&t=vq19ZxmTrZN4UCHEzTeH3YgJq9dZt1GpGFrkIHklKjc" 
+            alt="logo" 
+            className="rounded-md w-12 h-12" 
+          />
+          <span className="hero text-2xl font-bold text-slate-950 font-inter">Mankind</span>
+        </div>
+        {/* Add any additional navigation links or content here */}
+        <nav className="space-y-6 mt-6">
+      <Link to="/home" className="flex items-center text-slate-950 font-semibold text-xl p-4 gap-2">
+        Home
+      </Link>
+
+      <div className="space-y-4">
+        <span className="text-slate-950 font-semibold text-xl p-4">Ongoing</span>
+        <Link to="/ongoing/campaigns" className="ml-6 block text-slate-700 text-lg">Campaigns</Link>
+        <Link to="/ongoing/donations" className="ml-6 block text-slate-700 text-lg">Donations</Link>
+      </div>
+
+      <div className="space-y-4">
+        <span className="text-slate-950 font-semibold text-xl p-4">Completed</span>
+        <Link to="/completed/campaigns" className="ml-6 block text-slate-700 text-lg">Campaigns</Link>
+        <Link to="/completed/donations" className="ml-6 block text-slate-700 text-lg">Donations</Link>
+      </div>
+
+      <div className="space-y-4">
+        <span className="text-slate-950 font-semibold text-xl p-4">Profile</span>
+        <Link to="/profile/campaigns" className="ml-6 block text-slate-700 text-lg">Your Campaigns</Link>
+        <Link to="/profile/donations" className="ml-6 block text-slate-700 text-lg">Your Donations</Link>
+      </div>
+
+      <Link to="/" className="flex items-center text-slate-950 font-semibold text-xl p-4 gap-2">
+        Logout
+      </Link>
+    </nav>
+
+      </div>
 
       {/* Main Content */}
       <div className="flex-1 p-10">
@@ -65,7 +148,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="p-4">
-                <button className="bg-blue-400 text-secondary-foreground hover:bg-blue-500 w-full p-2 rounded-lg">Contribute</button>
+                <button className="bg-blue-400 text-secondary-foreground hover:bg-blue-500 w-full p-2 rounded-lg" onClick={requestMetaMaskAccess}>Contribute</button>
               </div>
             </div>
           ))}
