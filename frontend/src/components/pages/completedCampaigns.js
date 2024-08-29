@@ -1,7 +1,14 @@
 import React from 'react';
+import NavBar from '../partials/navbar';
 
 function CompletedCampaigns() {
-  return <div>Completed Campaigns</div>;
+  return (
+  <>
+  <div className="flex min-h-screen">
+    <NavBar />
+    </div>
+  </>
+  );
 }
 
 export default CompletedCampaigns;

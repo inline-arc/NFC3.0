@@ -11,6 +11,7 @@ import CompletedDonations from './components/pages/completedDonations';
 import CompletedCampaigns from './components/pages/completedCampaigns';
 import YourDonations from './components/pages/yourDonations';
 import YourCampaigns from './components/pages/yourCampaigns';
+import CardList from './components/donationCard';
 function App() {
   
             
@@ -31,7 +32,6 @@ function App() {
       </Routes>
       </div>
     </Router>
-  
   );
 }
 

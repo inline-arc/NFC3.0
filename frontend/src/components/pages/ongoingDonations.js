@@ -1,7 +1,13 @@
 import React from 'react';
-
+import NavBar from '../partials/navbar';
 function OngoingDonations() {
-  return <div>Ongoing Donations</div>;
+  return (
+    <>
+    <div className="flex min-h-screen">
+      <NavBar />
+      </div>
+    </>
+    );
 }
 
 export default OngoingDonations;
