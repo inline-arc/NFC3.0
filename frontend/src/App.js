@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Hero from './components/hero';
 import Login from './components/login';
-import HomeTest from './components/temp';
+import Home from './components/home';
 import Breadcrumb from './components/partials/breadcrumbs';
 import OngoingCampaigns from './components/pages/ongoingCampaigns';
 import OngoingDonations from './components/pages/ongoingDonations';
@@ -21,7 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Hero />} /> {/* Default or home route */}
         <Route path="/login" element={<Login />} /> {/* Route for login */}
-        <Route path="/home" element={<HomeTest />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/ongoing/campaigns" element={<OngoingCampaigns />} />
         <Route path="/ongoing/donations" element={<OngoingDonations />} />
         <Route path="/completed/campaigns" element={<CompletedCampaigns />} />
