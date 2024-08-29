@@ -19,6 +19,9 @@ const Breadcrumb = () => {
           const routeTo = `/${paths.slice(0, index + 1).join('/')}`;
           const isLast = index === paths.length - 1;
 
+          // Replace hyphens with spaces and capitalize the first letter
+          const displayPath = path.replace(/-/g, ' ').replace(/^\w/, (c) => c.toUpperCase());
+
           return (
             <li key={index} className="flex items-center">
               <svg className="rtl:rotate-180 block w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
@@ -26,11 +29,11 @@ const Breadcrumb = () => {
               </svg>
               {isLast ? (
                 <span className="ms-1 text-md font-semibold text-gray-700 md:ms-2 dark:text-gray-400">
-                  {path.charAt(0).toUpperCase() + path.slice(1)}
+                  {displayPath}
                 </span>
               ) : (
                 <Link to={routeTo} className="ms-1 text-md font-semibold text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">
-                  {path.charAt(0).toUpperCase() + path.slice(1)}
+                  {displayPath}
                 </Link>
               )}
             </li>

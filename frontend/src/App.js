@@ -12,6 +12,8 @@ import CompletedCampaigns from './components/pages/completedCampaigns';
 import YourDonations from './components/pages/yourDonations';
 import YourCampaigns from './components/pages/yourCampaigns';
 import CardList from './components/donationCard';
+import SeekDonation from './components/pages/seekDonation';
+import HostedDonation from './components/pages/hostedDonation';
 function App() {
   
             
@@ -23,12 +25,19 @@ function App() {
         <Route path="/" element={<Hero />} /> {/* Default or home route */}
         <Route path="/login" element={<Login />} /> {/* Route for login */}
         <Route path="/home" element={<Home />} />
-        <Route path="/ongoing/campaigns" element={<OngoingCampaigns />} />
-        <Route path="/ongoing/donations" element={<OngoingDonations />} />
-        <Route path="/completed/campaigns" element={<CompletedCampaigns />} />
-        <Route path="/completed/donations" element={<CompletedDonations />} />
-        <Route path="/profile/campaigns" element={<YourCampaigns />} />
-        <Route path="/profile/donations" element={<YourDonations />} />
+        <Route path="/campaigns/ongoing" element={<OngoingCampaigns />} />
+        <Route path="/donations/ongoing" element={<OngoingDonations />} />
+        <Route path="/campaigns/completed" element={<CompletedCampaigns />} />
+        <Route path="/donations/completed" element={<CompletedDonations />} />
+        <Route path="/campaigns/your-Campaigns" element={<YourCampaigns />} />
+        <Route path="/donations/your-Donations" element={<YourDonations />} />
+
+        <Route path="/events/ongoing" element={<OngoingCampaigns />} />
+        <Route path="/events/completed" element={<CompletedCampaigns />} />
+        <Route path="/events/your-Events" element={<YourCampaigns />} />
+
+        <Route path="/profile/seek-Donation" element={<SeekDonation />} />
+        <Route path="/profile/hosted-Donation" element={<HostedDonation />} />
       </Routes>
       </div>
     </Router>

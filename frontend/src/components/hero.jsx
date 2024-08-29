@@ -1,6 +1,7 @@
 import { useWalletStore } from "../utils/usewallet";
 import { useNavigate } from "react-router-dom";
-const { ethers } = require("ethers");
+import { ethers } from "ethers";
+
 
 export default function Login() {  // <--- Correct the component name to Login
   const setWallet = useWalletStore((state) => state.setWallet);
