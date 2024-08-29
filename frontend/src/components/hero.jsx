@@ -84,6 +84,7 @@ export default function Login() {  // <--- Correct the component name to Login
             </button>
           </div>
           <div className="mt-8 flex w-full space-x-8 justify-center">
+            
             <p className="block font-sans text-sm antialiased font-normal leading-normal text-slate-400">
               User ID : {wallet}
             </p>

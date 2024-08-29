@@ -2,16 +2,19 @@ import React from "react";
 import { useState } from "react";
 import { useWalletStore } from "../utils/usewallet";
 import { useFormStore } from "../utils/useform";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
   const setFormData = useFormStore((state) => state.setFormData);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setFormData({ firstName, lastName, userName });
+    navigate("/home"); 
   };
 
   const wallet = useWalletStore(state => state.wallet);
