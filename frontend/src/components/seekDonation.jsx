@@ -1,7 +1,45 @@
 import React, { useState } from "react";
+import useStore from "../utils/useStore";
 
-export default function SeekDonation() {
-    const [purpose, setPurpose] = useState("Medical Treatment");
+const SeekDonation = () => {
+    const { purpose, setPurpose, connectMetaMask, donate } = useStore(state => ({
+        purpose: state.purpose,
+        setPurpose: state.setPurpose,
+        connectMetaMask: state.connectMetaMask,
+        donate: state.donate,
+    }));
+
+    const [formData, setFormData] = useState({
+        amount: "",
+        title: "",
+        relation: "",
+        aadhaar: "",
+        email: "",
+        mobile: "",
+        ngo: "",
+        cause: "",
+        gst: "",
+        phone: "",
+        city: "",
+        description: "",
+    });
+
+    const handleInputChange = (e) => {
+        const { id, value } = e.target;
+        setFormData(prevState => ({ ...prevState, [id]: value }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await connectMetaMask();
+            await donate(formData.amount);
+            // Optionally handle formData and submit additional info to your backend or smart contract
+            console.log("Donation successful", formData);
+        } catch (error) {
+            console.error("Donation failed", error);
+        }
+    };
 
     return (
         <div className="bg-card p-6 rounded-lg shadow-lg max-w-md mx-auto">
@@ -20,12 +58,14 @@ export default function SeekDonation() {
                 <option>Other</option>
             </select>
 
-            {/* Common Fields */}
             <label className="block mb-2 text-black">Amount *</label>
             <input
                 type="number"
+                id="amount"
                 className="block w-full p-2 border border-border rounded mb-4"
                 placeholder="2500"
+                value={formData.amount}
+                onChange={handleInputChange}
                 required
             />
 
@@ -34,6 +74,8 @@ export default function SeekDonation() {
                 type="text"
                 id="title"
                 className="block w-full p-2 border border-border rounded mb-4"
+                value={formData.title}
+                onChange={handleInputChange}
                 required
             />
 
@@ -45,6 +87,8 @@ export default function SeekDonation() {
                         id="relation"
                         placeholder="Relation with Patient"
                         className="block w-full p-2 border border-border rounded mb-4"
+                        value={formData.relation}
+                        onChange={handleInputChange}
                         required
                     />
 
@@ -54,6 +98,8 @@ export default function SeekDonation() {
                         id="aadhaar"
                         placeholder="Your Aadhaar number"
                         className="block w-full p-2 border border-border rounded mb-4"
+                        value={formData.aadhaar}
+                        onChange={handleInputChange}
                         required
                     />
 
@@ -62,6 +108,8 @@ export default function SeekDonation() {
                         type="email"
                         id="email"
                         className="block w-full p-2 border border-border rounded mb-4"
+                        value={formData.email}
+                        onChange={handleInputChange}
                         required
                     />
 
@@ -70,6 +118,8 @@ export default function SeekDonation() {
                         type="tel"
                         id="mobile"
                         className="block w-full p-2 border border-border rounded mb-4"
+                        value={formData.mobile}
+                        onChange={handleInputChange}
                         required
                     />
                 </>
@@ -83,6 +133,8 @@ export default function SeekDonation() {
                         id="ngo"
                         placeholder="Name of the NGO"
                         className="block w-full p-2 border border-border rounded mb-4"
+                        value={formData.ngo}
+                        onChange={handleInputChange}
                         required
                     />
 
@@ -92,6 +144,8 @@ export default function SeekDonation() {
                         id="cause"
                         placeholder="Cause for fundraising"
                         className="block w-full p-2 border border-border rounded mb-4"
+                        value={formData.cause}
+                        onChange={handleInputChange}
                         required
                     />
 
@@ -101,6 +155,8 @@ export default function SeekDonation() {
                         id="aadhaar"
                         placeholder="Your Aadhaar number"
                         className="block w-full p-2 border border-border rounded mb-4"
+                        value={formData.aadhaar}
+                        onChange={handleInputChange}
                         required
                     />
 
@@ -110,6 +166,8 @@ export default function SeekDonation() {
                         id="gst"
                         placeholder="GST number of the NGO"
                         className="block w-full p-2 border border-border rounded mb-4"
+                        value={formData.gst}
+                        onChange={handleInputChange}
                         required
                     />
 
@@ -119,6 +177,8 @@ export default function SeekDonation() {
                         id="phone"
                         placeholder="Contact phone number"
                         className="block w-full p-2 border border-border rounded mb-4"
+                        value={formData.phone}
+                        onChange={handleInputChange}
                         required
                     />
 
@@ -128,6 +188,8 @@ export default function SeekDonation() {
                         id="city"
                         placeholder="City of the NGO"
                         className="block w-full p-2 border border-border rounded mb-4"
+                        value={formData.city}
+                        onChange={handleInputChange}
                         required
                     />
                 </>
@@ -138,10 +200,19 @@ export default function SeekDonation() {
                 id="description"
                 placeholder="In less than 250 words"
                 className="block w-full p-2 border border-border rounded mb-4"
+                value={formData.description}
+                onChange={handleInputChange}
                 required
             />
 
-            <button className="bg-slate-300 text-accent-foreground hover:bg-slate-100 w-full p-2 rounded">Next</button>
+            <button
+                className="bg-slate-300 text-accent-foreground hover:bg-slate-100 w-full p-2 rounded"
+                onClick={handleSubmit}
+            >
+                Next
+            </button>
         </div>
     );
-}
+};
+
+export default SeekDonation;
