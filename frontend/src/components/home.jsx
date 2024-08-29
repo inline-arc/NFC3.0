@@ -4,7 +4,7 @@ import { useFormStore } from "../utils/useform";
 import { useWalletStore } from "../utils/usewallet";
 import { Link } from 'react-router-dom';
 
-export default function HomeTest() {
+export default function Home() {
 
     const campaigns = [
         {
