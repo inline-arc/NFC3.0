@@ -1,22 +1,17 @@
 import React, { useState } from "react";
-import useStore from "../utils/useStore";
+import useHost from "../utils/useHost"; // Updated to use `useHost`
 import { ethers } from "ethers";
 import { useWalletStore } from "../utils/usewallet";
-import Evault from "../data/Evalue2.json";
-
-const { ethereum } = window;
-const contractAbi = Evault.abi;
+import Evault from '../data/Evault2.json'; // Corrected ABI import
 
 const SeekDonationForm = () => {
-    const wallet = useWalletStore(state => state.wallet);
-
-    const { purpose, setPurpose } = useStore(state => ({
+    const { purpose, setPurpose } = useHost(state => ({
         purpose: state.purpose,
         setPurpose: state.setPurpose,
     }));
 
     const [formData, setFormData] = useState({
-        amount: 0,
+        amount: "",
         title: "",
         relation: "",
         aadhaar: "",
@@ -35,51 +30,41 @@ const SeekDonationForm = () => {
         setFormData(prevState => ({ ...prevState, [id]: value }));
     };
 
-    const getEthereumContract = async () => {
-        if (wallet) {
-            const provider = new ethers.providers.Web3Provider(ethereum);
-            const signer = provider.getSigner();
-            const contractAddress = "0xf8e81D47203A594245E36C48e151709F0C19fBe8";
-            const contract = new ethers.Contract(contractAddress, contractAbi, signer);
-            return contract;
+    const wallet = useWalletStore(state => state.wallet);
+
+    const getEtheriumContract = async () => {
+        const connectedAccount = getGlobalState('connectedAccount')
+      
+        if (connectedAccount) {
+          const provider = new ethers.providers.Web3Provider(ethereum)
+          const signer = provider.getSigner()
+          const contract = new ethers.Contract(contractAddress, contractAbi, signer)
+      
+          return contract
         } else {
-            alert('Please connect your wallet.');
-            return null;
+          return getGlobalState('contract')
         }
-    };
-
-    const createProject = async () => {
+      }
+      
+      const createProject = async ({
+        title,
+        description,
+        imageURL,
+        cost,
+        expiresAt,
+      }) => {
         try {
-            if (!ethereum) return alert('Please install Metamask');
-
-            const contract = await getEthereumContract();
-            if (!contract) return;
-
-            const tx = await contract.createFundraiser(
-                purpose,
-                ethers.utils.parseEther(formData.amount.toString()), // Convert amount to wei
-                formData.relation,
-                formData.aadhaar,
-                formData.phone,
-                formData.title,
-                formData.description
-            );
-            await tx.wait();
-            alert('Fundraiser created successfully');
-            console.log('Fundraiser created:', tx);
-
-            await tx.wait();
-
-            // Update Zustand store with form data as well
-            setFormData({
-                ...formData,
-            });
+          if (!ethereum) return alert('Please install Metamask')
+      
+          const contract = await getEtheriumContract()
+          cost = ethers.utils.parseEther(cost)
+          tx = await contract.createProject(title, description, imageURL, cost, expiresAt)
+          await tx.wait()
+          await loadProjects()
         } catch (error) {
-            console.error('Error creating fundraiser:', error);
-            alert('An error occurred while creating the fundraiser');
+          reportError(error)
         }
-    };
-    //const wallet = useWalletStore(state => state.wallet);
+      }
 
     return (
         <div className="bg-card p-6 rounded-lg shadow-lg mx-auto flex">
@@ -263,6 +248,6 @@ const SeekDonationForm = () => {
             </div>
         </div>
     );
-};      
+};
 
 export default SeekDonationForm;
