@@ -6,7 +6,7 @@ export default function LeaderBoard() {
 
     const sorting = (col) => {
         let sortedData;
-        if (col === "rank" || col === "points" || col === "age") {
+        if (col === "rank" || col === "ETH" || col === "age") {
             sortedData = [...data].sort((a, b) => a[col] - b[col]);
         } else if (col === "name") {
             sortedData = [...data].sort((a, b) => 
@@ -36,12 +36,12 @@ export default function LeaderBoard() {
                     Name
                 </button>
                 <button 
-                    data-testid="route-points" 
+                    data-testid="route-ETH" 
                     className="px-4 py-2 mx-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition"
                     type="button" 
-                    onClick={() => sorting("points")}
+                    onClick={() => sorting("ETH")}
                 >
-                    Points
+                    ETH
                 </button>
                 <button 
                     data-testid="route-age" 
@@ -59,7 +59,7 @@ export default function LeaderBoard() {
                         <tr>
                             <th className="py-3 px-6">Rank</th>
                             <th className="py-3 px-6">Name</th>
-                            <th className="py-3 px-6">Points</th>
+                            <th className="py-3 px-6">ETH</th>
                             <th className="py-3 px-6">Age</th>
                         </tr>
                     </thead>
@@ -68,7 +68,7 @@ export default function LeaderBoard() {
                             <tr key={elem.id} className="bg-gray-100 border-b border-gray-200">
                                 <td data-testid={`rank-${index}`} className="py-3 px-6 text-center">{elem.rank}</td>
                                 <td data-testid={`name-${index}`} className="py-3 px-6">{elem.name}</td>
-                                <td data-testid={`points-${index}`} className="py-3 px-6 text-center">{elem.points}</td>
+                                <td data-testid={`ETH-${index}`} className="py-3 px-6 text-center">{elem.ETH}</td>
                                 <td data-testid={`age-${index}`} className="py-3 px-6 text-center">{elem.age}</td>
                             </tr>
                         ))}

@@ -10,7 +10,7 @@ export default function NavBar() {
             alt="logo" 
             className="rounded-md w-12 h-12" 
           />
-          <span className="hero text-2xl font-bold text-slate-950 font-inter">Mankind</span>
+          <span className="hero text-2xl font-bold text-slate-950 font-inter">The Deeds Exchange</span>
         </div>
         {/* Add any additional navigation links or content here */}
         <nav className="space-y-6 mt-6">

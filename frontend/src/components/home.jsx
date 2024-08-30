@@ -29,15 +29,15 @@ export default function CardList() {
                 <div className="flex items-center justify-between">
                     <PieChart
                         data={[
-                            { title: 'One', value: 10, color: '#E38627' },
-                            { title: 'Two', value: 15, color: '#C13C37' },
-                            { title: 'Three', value: 20, color: '#6A2135' },
+                            { title: 'Campaigns', value: 10, color: '#E38627' },
+                            { title: 'Donations', value: 15, color: '#C13C37' },
+                            { title: 'Events', value: 20, color: '#6A2135' },
                         ]}
                         style={{ height: '300px', width: '300px' }}
                     />
                     <div className="w-1/2 p-6">
-                        <h2 className="text-2xl font-semibold text-slate-800 mb-4">Campaign 1</h2>
-                        <p className="text-slate-600 mb-2">Details about the first campaign go here. You can add information like the purpose of the campaign, the amount of funds required, the progress so far, and other relevant details.</p>
+                        <h2 className="text-2xl font-semibold text-slate-800 mb-4">Your Contributions</h2>
+                        <p className="text-slate-600 mb-2"></p>
                         <p className="text-slate-600">Campaign Ends: 43 Days</p>
                         <p className="text-slate-600">People Donated: 5</p>
                     </div>
@@ -46,16 +46,17 @@ export default function CardList() {
                 {/* Second Pie Chart with Image on the Right */}
                 <div className="flex items-center justify-between">
                     <div className="w-1/2 p-6 order-2">
-                        <h2 className="text-2xl font-semibold text-slate-800 mb-4">Campaign 2</h2>
-                        <p className="text-slate-600 mb-2">Details about the second campaign go here. You can describe the campaign, explain the goals, and share any additional information relevant to the audience.</p>
+                        <h2 className="text-2xl font-semibold text-slate-800 mb-4">Organizational Impact</h2>
+                        <p className="text-slate-600 mb-2"></p>
                         <p className="text-slate-600">Campaign Ends: 30 Days</p>
                         <p className="text-slate-600">People Donated: 8</p>
                     </div>
                     <PieChart
                         data={[
-                            { title: 'Four', value: 25, color: '#8BC34A' },
-                            { title: 'Five', value: 20, color: '#FFC107' },
-                            { title: 'Six', value: 30, color: '#FF5722' },
+                            { title: 'Happy Life', value: 15, color: '#8BC34A' },
+                            { title: 'Helping Hands', value: 20, color: '#FFC107' },
+                            { title: 'Nanhi-Kali', value: 20, color: '#FF5722' },
+                            { title: 'Paw-Hopes', value: 10, color: '#6A2135' },
                         ]}
                         style={{ height: '300px', width: '300px' }}
                     />
