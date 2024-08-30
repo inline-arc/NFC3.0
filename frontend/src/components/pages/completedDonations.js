@@ -14,6 +14,14 @@ function CompletedDonations() {
               campaignEnds: "43 Days",
               peopleDonated: 5,
           },
+          {
+            "title": "Help Us Save a Child Suffering from Leukemia",
+            "imageUrl": "https://img.freepik.com/free-photo/child-hospital-bed_23-2151488880.jpg",
+            "fundsRequired": "₹ 15,00,000",
+            "progress": 45,
+            "campaignEnds": "30 Days",
+            "peopleDonated": 10
+        },
           // Add other campaigns here...
         ];
       

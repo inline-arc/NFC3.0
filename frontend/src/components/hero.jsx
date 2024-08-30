@@ -32,14 +32,14 @@ export default function Login() {  // <--- Correct the component name to Login
         <div className="max-w-3xl text-center">
           <div className="pb-4">
             <span className="hero inline-flex items-center rounded-2xl bg-slate-200 px-4 py-1.5 text-xs sm:text-sm font-serif font-medium text-neutral-800">
-              Unlock the potential of blockchain in Social Good.
+              The World's best Nation "Donation" Platform
             </span>
           </div>
           <h1 className="hero text-4xl sm:text-5xl font-semibold text-lime-50 xl:text-6xl font-intan !leading-tight">
-            Join <br />The World's Best Nation <br />"Donation"
+            The Deeds Exchange 
           </h1>
           <p className="side mt-4 text-md sm:text-sm leading-8 text-slate-100 sm:px-16 font-intan white-space: pre-line;">
-            Make a better world by solving one problem at a time using blockchain technology, ensuring freedom, safety, and authenticity. Break free from centralized control and amplify genuine voices in social good.
+            Make a better world by solving one problem at a time using blockchain technology, ensuring freedom, safety, and authenticity. Break free from centralized control and amplify genuine voices in social good .
           </p>
 
           <div className="mt-8 flex w-full space-x-8 justify-center">
